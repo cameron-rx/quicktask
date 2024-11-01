@@ -1,11 +1,31 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= title %></title>
+    <title>Quicktask</title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
   </head>
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <a href="/">
+      <h1>Quicktask</h1>
+    </a>
+
+    <div id="startDiv">
+      <p>Create easy todo lists!</p>
+      <button id="createListButton">Create</button>
+      <button id="loadListButton">Open</button>
+      </div>
+
+    <div id="createListDiv" hidden>
+      <input type="text" id="newItem" name="newItem">
+      <button id="addItem">Add Task</button>
+    </div>
+
+    <div id="loadListDiv" hidden>
+      <label for="listID">Enter ID:</label>
+      <input type="text" id="listID" name="listID">
+      <button id="findListButton">Load</button>
+    </div>
+
+    <script type="text/javascript" src="javascripts/index.js"></script>
   </body>
 </html>
