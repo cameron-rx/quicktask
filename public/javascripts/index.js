@@ -39,7 +39,6 @@ function addTask() {
 }
 
 function removeTask(parent) {
-    console.log("Remove clicked")
     parent.remove();
 }
 
