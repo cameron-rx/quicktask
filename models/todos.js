@@ -9,7 +9,6 @@ const todoItemSchema = new Schema({
 });
 
 const listSchema = new Schema({
-    id: {type: String, required: true},
     user: {type: String, required: true},
     name: {type: String, required: true},
     items: {type: [todoItemSchema]}
@@ -18,17 +17,9 @@ const listSchema = new Schema({
 listSchema.set('toObject', {getters: true, virtuals: true});
 listModel = mongoose.model('todos', listSchema);
 
-
-/* TODO
-- Create list
-- Delete list
-- Update list
-*/ 
-
 exports.create = function(data) {
     const list = new listModel(
         {
-            id: data.id,
             user: data.user,
             name: data.name,
             items: data.items
@@ -45,7 +36,7 @@ exports.create = function(data) {
 }
 
 exports.delete = function(listID) {
-    listModel.deleteOne({id: listID}).then(res => {
+    listModel.deleteOne({_id: listID}).then(res => {
         if (res.n > 0) {
             console.log("Deleted Document")
             return "Document Deleted"
@@ -60,7 +51,7 @@ exports.delete = function(listID) {
 }
 
 exports.update = function(listID, newItems) {
-    listModel.updateOne({id: listID}, {items: newItems}).then(res => {
+    listModel.updateOne({_id: listID}, {items: newItems}).then(res => {
         if (res.matchedCount > 0) {
             console.log("Found list to update");
         } else {
@@ -79,7 +70,7 @@ exports.update = function(listID, newItems) {
 }
 
 exports.get = function(listID) {
-    listModel.findOne({id: listID}).then(list => {
+    listModel.findOne({_id: listID}).then(list => {
         console.log("Found List")
         return list
     }).catch(err => {
