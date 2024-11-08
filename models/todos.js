@@ -26,17 +26,17 @@ exports.create = function(data) {
         }
     )
 
-    list.save().then(list => {
+    return list.save().then(list => {
         console.log(list)
-        return "List Saved"
+        return true
     }).catch(err => {
         console.log(err)
-        return "Error"
+        return false
     })
 }
 
 exports.delete = function(listID) {
-    listModel.deleteOne({_id: listID}).then(res => {
+    return listModel.deleteOne({_id: listID}).then(res => {
         if (res.n > 0) {
             console.log("Deleted Document")
             return "Document Deleted"
@@ -51,7 +51,7 @@ exports.delete = function(listID) {
 }
 
 exports.update = function(listID, newItems) {
-    listModel.updateOne({_id: listID}, {items: newItems}).then(res => {
+    return listModel.updateOne({_id: listID}, {items: newItems}).then(res => {
         if (res.matchedCount > 0) {
             console.log("Found list to update");
         } else {
@@ -70,12 +70,12 @@ exports.update = function(listID, newItems) {
 }
 
 exports.get = function(listID) {
-    listModel.findOne({_id: listID}).then(list => {
+    return listModel.findOne({_id: listID}).then(list => {
         console.log("Found List")
         return list
     }).catch(err => {
         console.log(err)
-        return err
+        return null
     })
 }
 
