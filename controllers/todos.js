@@ -3,10 +3,11 @@ listModel = require('../models/todos')
 function listGetHandler(req,res) {
     const listID = req.query.id;
 
-    if (listID === null)
+    if (!listID) {
         res.status(500).send("Must include id query parameter.")
+    }
 
-    istModel.get(listID).then(list => {
+    listModel.get(listID).then(list => {
         if (list) {
             res.status(200).json(list);
         } else {
@@ -16,5 +17,11 @@ function listGetHandler(req,res) {
 }
 
 function listPostHandler(req,res) {
+    const list = JSON.parse(req.body)
 
+    listModel.create(list).then(completed => {
+        if (completed){
+            res.status("200").send("Added list to database")
+        }
+    })
 }
