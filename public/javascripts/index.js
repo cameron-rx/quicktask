@@ -2,13 +2,18 @@ document.getElementById("createListButton").addEventListener("click", () => {
     document.getElementById("startDiv").setAttribute("hidden", "true");
     document.getElementById("createListDiv").removeAttribute("hidden");
 });
-
 document.getElementById("loadListButton").addEventListener("click", () => {
     document.getElementById("startDiv").setAttribute("hidden", "true");
     document.getElementById("loadListDiv").removeAttribute("hidden");
 });
-
+document.getElementById("startListButton").addEventListener("click", () => {
+    document.getElementById("createListDiv").setAttribute("hidden", "true");
+    document.getElementById("listViewDiv").removeAttribute("hidden");
+    createList();
+})
 document.getElementById("addItemButton").addEventListener("click", addTask);
+document.getElementById("saveList").addEventListener("click", updateList);
+
 
 function addTask() {
     console.log("Add task");
@@ -42,9 +47,29 @@ function removeTask(parent) {
     parent.remove();
 }
 
-/*
-TODO:
-    - Function to add tasks to view
-    - Function to remove tasks from view
-    - Function to save tasks to database
-*/
+
+function createList() {
+    console.log("Create")
+    console.log(document.getElementById("listName").value)
+    listname = document.getElementById("listName").value
+    username = document.getElementById("username").value;
+    document.getElementById("listNameHeader").innerHTML = listname;
+    document.getElementById("usernameHeader").innerHTML = username; 
+    // Retrieve username
+    // Retrieve name of list
+    fetch("http://localhost:3000/list", {
+        method: "POST",
+        body: JSON.stringify({
+            user: username,
+            name: listname,
+            items: []
+        }),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    })
+}
+
+function updateList() {
+
+}

@@ -15,7 +15,10 @@
       <button id="loadListButton">Open</button>
       </div>
 
-    <div id="createListDiv" hidden>
+    <div id="listViewDiv" hidden>
+      <h2 id="listNameHeader"></h1>
+      <h2 id="usernameHeader"></h1>
+      <p>Tasklist ID: </p>
       <div id="tasks">
       </div>
 
@@ -26,6 +29,14 @@
 
       <button id="saveList">Save</button>
 
+    </div>
+
+    <div id="createListDiv" hidden>
+      <label for="listName">List Name: </label>
+      <input type="text" id="listName" name="listName"> <br>
+      <label for="username">Username: </label>
+      <input type="text" id="username" name="username"> <br>
+      <button id="startListButton">Start</button>
     </div>
 
     <div id="loadListDiv" hidden>

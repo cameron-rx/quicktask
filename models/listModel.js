@@ -19,7 +19,7 @@ const listModel = mongoose.model('todos', listSchema);
 
 exports.create = async function(data) {
     console.log("Create");
-    const list = await listModel.create({user: "servertest", name: "list", items: [{name: "item1", status: false}]})
+    const list = await listModel.create(data)
     return list;
 }
 
