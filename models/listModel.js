@@ -15,27 +15,15 @@ const listSchema = new Schema({
 });
 
 listSchema.set('toObject', {getters: true, virtuals: true});
-listModel = mongoose.model('todos', listSchema);
+const listModel = mongoose.model('todos', listSchema);
 
-exports.create = function(data) {
-    const list = new listModel(
-        {
-            user: data.user,
-            name: data.name,
-            items: data.items
-        }
-    )
-
-    return list.save().then(list => {
-        console.log(list)
-        return true
-    }).catch(err => {
-        console.log(err)
-        return false
-    })
+exports.create = async function(data) {
+    console.log("Create");
+    const list = await listModel.create({user: "servertest", name: "list", items: [{name: "item1", status: false}]})
+    return list;
 }
 
-exports.delete = function(listID) {
+exports.delete = async function(listID) {
     return listModel.deleteOne({_id: listID}).then(res => {
         if (res.n > 0) {
             console.log("Deleted Document")
@@ -50,7 +38,7 @@ exports.delete = function(listID) {
     })
 }
 
-exports.update = function(listID, newItems) {
+exports.update = async function(listID, newItems) {
     return listModel.updateOne({_id: listID}, {items: newItems}).then(res => {
         if (res.matchedCount > 0) {
             console.log("Found list to update");
@@ -69,7 +57,7 @@ exports.update = function(listID, newItems) {
     })
 }
 
-exports.get = function(listID) {
+exports.get = async function(listID) {
     return listModel.findOne({_id: listID}).then(list => {
         console.log("Found List")
         return list
