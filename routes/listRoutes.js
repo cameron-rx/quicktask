@@ -7,7 +7,7 @@ var router = express.Router();
 var controller = require('../controllers/listController.js')
 
 /* GET users listing. */
-router.get('/', controller.listGetHandler)
+router.get('/:id', controller.listGetHandler)
 router.post('/', controller.listPostHandler) 
 
 

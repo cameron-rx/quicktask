@@ -58,12 +58,9 @@ exports.update = async function(listID, newItems) {
 }
 
 exports.get = async function(listID) {
-    return listModel.findOne({_id: listID}).then(list => {
-        console.log("Found List")
-        return list
-    }).catch(err => {
-        console.log(err)
-        return null
-    })
+    console.log("Read")
+    const list = await listModel.findOne({id: listID})
+    console.log(list)
+    return list
 }
 

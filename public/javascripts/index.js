@@ -1,3 +1,4 @@
+// TODO: Create toggle list function for all repeated code here
 document.getElementById("createListButton").addEventListener("click", () => {
     document.getElementById("startDiv").setAttribute("hidden", "true");
     document.getElementById("createListDiv").removeAttribute("hidden");
@@ -14,19 +15,54 @@ document.getElementById("startListButton").addEventListener("click", () => {
 document.getElementById("addItemButton").addEventListener("click", addTask);
 document.getElementById("saveList").addEventListener("click", updateList);
 
+document.getElementById("findListButton").addEventListener("click", () => {
+    const id = document.getElementById("listID").value;
+    const fetchURL = "http://localhost:3000/list/" + id
+
+    fetch(fetchURL).then(res => res.json()).then(data => {
+        const list = data
+
+        document.getElementById("listNameHeader").innerHTML = list.name;
+        document.getElementById("usernameHeader").innerHTML = list.user
+        document.getElementById("idHeader").innerHTML = "ID: " + list._id
+
+        const items = list.items
+        for (const item of items) {
+            createTaskComponent(item)
+        }
+    }).catch(err => {
+        console.log(err)
+    })
+
+    document.getElementById("loadListDiv").setAttribute("hidden", "true");
+    document.getElementById("listViewDiv").removeAttribute("hidden");
+})
 
 function addTask() {
     console.log("Add task");
-    const task = document.getElementById("newItem").value;
+    const taskName = document.getElementById("newItem").value;
+
+    const task = {
+        name: taskName,
+        status: false,
+    }
+
+    createTaskComponent(task)
+    document.getElementById("newItem").value = "";
+}
+
+
+function createTaskComponent(item){
     const newTask = document.createElement("div");
-
-    console.log(task)
-
     const taskLabel = document.createElement('label');
-    taskLabel.innerHTML = task
+    taskLabel.innerHTML = item.name
 
     const taskCheckbox = document.createElement('input');
     taskCheckbox.setAttribute("type", "checkbox");
+
+    if (item.status) {
+        taskCheckbox.setAttribute("checked", "true");
+    }
 
     const taskRemoveButton = document.createElement('button');
     taskRemoveButton.innerHTML = "x";
@@ -39,8 +75,6 @@ function addTask() {
     newTask.appendChild(taskRemoveButton);
 
     document.getElementById("tasks").appendChild(newTask);
-
-    document.getElementById("newItem").value = "";
 }
 
 function removeTask(parent) {
