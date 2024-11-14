@@ -67,6 +67,9 @@ function createList() {
         headers: {
             "Content-type": "application/json; charset=UTF-8"
         }
+    }).then(res => res.json()).then(data => {
+        console.log(data)
+        document.getElementById("idHeader").innerHTML = "ID: " + data.id
     })
 }
 

@@ -28,7 +28,8 @@ const listPostHandler = async function(req,res) {
         return;
     }
 
-    res.status(200).send("List saved.")
+    console.log(savedList.id)
+    res.json({id: savedList.id})
 }
 
 module.exports = {listGetHandler, listPostHandler};
