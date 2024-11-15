@@ -1,7 +1,9 @@
 listModel = require('../models/listModel')
 
 const listGetHandler = async function (req,res) {
-    const listID = req.query.id;
+    console.log(req.params)
+    const listID = req.params.id;
+    console.log(listID)
 
     const list = await listModel.get(listID)
 
@@ -12,8 +14,6 @@ const listGetHandler = async function (req,res) {
 
     res.status(200).json(list);
 }
-
-
 
 const listPostHandler = async function(req,res) {
     const list = req.body
@@ -28,4 +28,21 @@ const listPostHandler = async function(req,res) {
     res.json({id: savedList.id})
 }
 
-module.exports = {listGetHandler, listPostHandler};
+//TODO: Implement put handler
+//TODO: Implement delete handler
+
+const listDeleteHandler = async function(req, res) {
+    console.log("Delete Handler")
+    const listID = req.params.id
+
+    
+    const deleteResponse = await listModel.delete(listID)
+
+    if (deleteResponse.deletedCount > 0) {
+        res.status(200).send("List deleted")
+    } else {
+        res.status(500).send(deleteResponse.message)
+    }
+}
+
+module.exports = {listGetHandler, listPostHandler, listDeleteHandler};

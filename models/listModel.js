@@ -24,18 +24,14 @@ exports.create = async function(data) {
 }
 
 exports.delete = async function(listID) {
-    return listModel.deleteOne({_id: listID}).then(res => {
-        if (res.n > 0) {
-            console.log("Deleted Document")
-            return "Document Deleted"
-        } else {
-            console.log("Document Not Found")
-            return "Document Not Found"
-        }
-    }).catch(err => {
-        console.log(err)
-        return "Error"
-    })
+    let response = {
+        status: false,
+        message: ""
+    }
+
+    const dbResponse = await listModel.deleteOne({_id: listID})
+
+    return dbResponse;
 }
 
 exports.update = async function(listID, newItems) {
@@ -58,9 +54,7 @@ exports.update = async function(listID, newItems) {
 }
 
 exports.get = async function(listID) {
-    console.log("Read")
-    const list = await listModel.findOne({id: listID})
-    console.log(list)
+    const list = await listModel.findById(listID)
     return list
 }
 

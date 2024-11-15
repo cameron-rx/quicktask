@@ -1,14 +1,12 @@
-/*
-TODO:
-- GET, PUT, POST, DELETE routes for todo lists 
-*/
 var express = require('express');
 var router = express.Router();
 var controller = require('../controllers/listController.js')
 
-/* GET users listing. */
 router.get('/:id', controller.listGetHandler)
 router.post('/', controller.listPostHandler) 
+router.delete('/:id', controller.listDeleteHandler)
+//TODO: Implement put route (use id in route like get)
+//TODO: Implement delete route (use id in route like get)
 
 
 

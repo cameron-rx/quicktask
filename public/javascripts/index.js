@@ -13,14 +13,29 @@ document.getElementById("startListButton").addEventListener("click", () => {
     createList();
 })
 document.getElementById("addItemButton").addEventListener("click", addTask);
-document.getElementById("saveList").addEventListener("click", updateList);
+document.getElementById("saveListButton").addEventListener("click", updateList);
+
+
+document.getElementById("deleteListButton").addEventListener("click", () => {
+    const listID = document.getElementById("idHeader").innerHTML.slice(4);
+    console.log(listID)
+    const fetchURL = "http://localhost:3000/list/" + listID
+
+    fetch(fetchURL, {method: 'DELETE'})
+
+    document.getElementById("listViewDiv").setAttribute("hidden", "true");
+    document.getElementById("startDiv").removeAttribute("hidden")
+});
 
 document.getElementById("findListButton").addEventListener("click", () => {
     const id = document.getElementById("listID").value;
+    console.log(id)
     const fetchURL = "http://localhost:3000/list/" + id
+    console.log(fetchURL)
 
     fetch(fetchURL).then(res => res.json()).then(data => {
         const list = data
+        console.log(list)
 
         document.getElementById("listNameHeader").innerHTML = list.name;
         document.getElementById("usernameHeader").innerHTML = list.user
