@@ -76,7 +76,7 @@ function createTaskComponent(item){
     taskCheckbox.setAttribute("type", "checkbox");
 
     if (item.status) {
-        taskCheckbox.setAttribute("checked", "true");
+        taskCheckbox.checked = true;
     }
 
     const taskRemoveButton = document.createElement('button');
@@ -123,5 +123,22 @@ function createList() {
 }
 
 function updateList() {
+    console.log("Saving List")
+    const itemsDiv = document.getElementById("tasks").children
+    console.log(itemsDiv[0].children)
+    const items = []
 
+    for(let i = 0; i < itemsDiv.length; i++) {
+        const item = itemsDiv[i].children
+        // 0 = label
+        // 1 = checkbox
+        // 2 = button
+        items.push({
+            name: item[0].innerHTML,
+            status: item[1].checked
+        })
+
+    }
+
+    console.log(items)
 }
