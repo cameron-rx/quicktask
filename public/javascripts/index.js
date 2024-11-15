@@ -140,5 +140,15 @@ function updateList() {
 
     }
 
-    console.log(items)
+    const listID = document.getElementById("idHeader").innerHTML.slice(4);
+
+    const fetchURL = "http://localhost:3000/list/" + listID
+
+    fetch(fetchURL, {
+        method: "PUT",
+        body: JSON.stringify({items: items}),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8"
+        }
+    })
 }

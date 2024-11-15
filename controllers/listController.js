@@ -45,4 +45,21 @@ const listDeleteHandler = async function(req, res) {
     }
 }
 
-module.exports = {listGetHandler, listPostHandler, listDeleteHandler};
+const listPutHandler = async function(req, res) {
+    console.log("Put Handler")
+    const listID = req.params.id
+    const updates = req.body
+    console.log(req.body)
+
+    const updateResponse = await listModel.update(listID, updates)
+
+    console.log(updateResponse)
+
+    if (updateResponse.modifiedCount > 0) {
+        res.status(200).send("List updated")
+    } else {
+        res.status(500).send("List not updated")
+    }
+}
+
+module.exports = {listGetHandler, listPostHandler, listDeleteHandler, listPutHandler};
