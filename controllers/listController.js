@@ -17,6 +17,7 @@ const listGetHandler = async function (req,res) {
 
 const listPostHandler = async function(req,res) {
     const list = req.body
+    list.user = req.user
     const savedList = await listModel.create(list)
 
     if (!savedList) {
@@ -49,9 +50,9 @@ const listPutHandler = async function(req, res) {
     console.log("Put Handler")
     const listID = req.params.id
     const updates = req.body
-    console.log(req.body)
+    const user = req.user
 
-    const updateResponse = await listModel.update(listID, updates)
+    const updateResponse = await listModel.update(listID, user, updates)
 
     console.log(updateResponse)
 

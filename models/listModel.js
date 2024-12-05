@@ -22,13 +22,13 @@ exports.create = async function(data) {
     return list;
 }
 
-exports.delete = async function(listID) {
-    const dbResponse = await listModel.deleteOne({_id: listID})
+exports.delete = async function(listID, user) {
+    const dbResponse = await listModel.deleteOne({_id: listID, user: user})
     return dbResponse;
 }
 
-exports.update = async function(listID, updatedList) {
-    const update = listModel.updateOne({_id: listID}, updatedList)
+exports.update = async function(listID, user, updatedList) {
+    const update = listModel.updateOne({_id: listID, user: user}, updatedList)
     return update
 }
 
